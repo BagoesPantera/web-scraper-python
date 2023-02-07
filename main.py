@@ -11,7 +11,7 @@ req = requests.get(url, headers=headers)
 print(req, '\n')
 soup = BeautifulSoup(req.text, 'html.parser')
 items = soup.findAll('div', 'media-body')
-dataName = ['name', 'address', 'phone', 'ssn', 'email', 'ip', 'username', 'password', 'CC', 'exp', 'iban', 'bic', 'job', 'image']
+dataHeader = ['name', 'address', 'phone', 'ssn', 'email', 'ip', 'username', 'password', 'CC', 'exp', 'iban', 'bic', 'job', 'image']
 temp = []
 datas = []
 for count, item in enumerate(items):
@@ -27,4 +27,6 @@ for count, item in enumerate(items):
             temp = []
             print('\n')
 
-print(datas)
+writer = csv.writer(open('result/result.csv', 'w', newline=''))
+writer.writerow(dataHeader)
+for data in datas: writer.writerow(data)

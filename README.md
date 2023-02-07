@@ -5,6 +5,7 @@ This project build with [BeautifulSoup4](https://pypi.org/project/beautifulsoup4
 ```sh
 pip install requests
 pip install beautifulsoup4
+mkdir result
 ```
 ## Run
 ```sh

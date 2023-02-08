@@ -1,14 +1,17 @@
+import random
+
 import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = 'https://www.random-name-generator.com/united-states?s=408&gender=&n=5'
+seed = random.randrange(1000)
+url = 'https://www.random-name-generator.com/united-states?s={}&gender=&n=5'.format(seed)
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78'
 }
 
 req = requests.get(url, headers=headers)
-print(req, '\n')
+print(req)
 soup = BeautifulSoup(req.text, 'html.parser')
 items = soup.findAll('div', 'media-body')
 dataHeader = ['name', 'address', 'phone', 'ssn', 'email', 'ip', 'username', 'password', 'CC', 'exp', 'iban', 'bic', 'job', 'image']
@@ -27,6 +30,6 @@ for count, item in enumerate(items):
             temp = []
             print('\n')
 
-writer = csv.writer(open('result/result.csv', 'w', newline=''))
+writer = csv.writer(open('result/result-{}.csv'.format(seed), 'w', newline=''))
 writer.writerow(dataHeader)
 for data in datas: writer.writerow(data)
